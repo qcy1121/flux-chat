@@ -16,6 +16,7 @@ module.exports = {
 
   ActionTypes: keyMirror({
     CLICK_THREAD: null,
+    CLICK_BACK_TO_THREAD:null,
     CREATE_MESSAGE: null,
     RECEIVE_RAW_CREATED_MESSAGE: null,
     RECEIVE_RAW_MESSAGES: null

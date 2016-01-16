@@ -13,6 +13,7 @@
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
 var ChatMessageUtils = require('../utils/ChatMessageUtils');
+var MessageStore = require('../stores/MessageStore');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
@@ -21,7 +22,7 @@ var CHANGE_EVENT = 'change';
 
 var _currentID = null;
 var _threads = {};
-
+var _isShow =true;
 var ThreadStore = assign({}, EventEmitter.prototype, {
 
   init: function(rawMessages) {
@@ -98,19 +99,31 @@ var ThreadStore = assign({}, EventEmitter.prototype, {
 
   getCurrent: function() {
     return this.get(this.getCurrentID());
+  },
+  getShowState:function(){
+    return _isShow;
   }
 
 });
 
 ThreadStore.dispatchToken = ChatAppDispatcher.register(function(action) {
-
+//  ChatAppDispatcher.waitFor([
+//    MessageStore.dispatchToken
+//  ]);
   switch(action.type) {
 
     case ActionTypes.CLICK_THREAD:
       _currentID = action.threadID;
       _threads[_currentID].lastMessage.isRead = true;
+      _isShow = false;
+
       ThreadStore.emitChange();
       break;
+
+    case ActionTypes.CLICK_BACK_TO_THREAD:
+          _isShow = true;
+        ThreadStore.emitChange();
+          break;
 
     case ActionTypes.RECEIVE_RAW_MESSAGES:
       ThreadStore.init(action.rawMessages);

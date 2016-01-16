@@ -18,7 +18,7 @@ var ChatApp = React.createClass({
 
   render: function() {
     return (
-      <div className="chatapp">
+      <div className="container">
         <ThreadSection />
         <MessageSection />
       </div>
@@ -28,3 +28,4 @@ var ChatApp = React.createClass({
 });
 
 module.exports = ChatApp;
+/*<MessageSection />*/

@@ -21,6 +21,7 @@ var ActionTypes = ChatConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _messages = {};
+var _isShow = false;
 
 function _addMessages(rawMessages) {
   rawMessages.forEach(function(message) {
@@ -89,6 +90,9 @@ var MessageStore = assign({}, EventEmitter.prototype, {
 
   getAllForCurrentThread: function() {
     return this.getAllForThread(ThreadStore.getCurrentID());
+  },
+  getShowState:function(){
+    return _isShow;
   }
 
 });
@@ -98,11 +102,15 @@ MessageStore.dispatchToken = ChatAppDispatcher.register(function(action) {
   switch(action.type) {
 
     case ActionTypes.CLICK_THREAD:
+        _isShow = true;
       ChatAppDispatcher.waitFor([ThreadStore.dispatchToken]);
       _markAllInThreadRead(ThreadStore.getCurrentID());
       MessageStore.emitChange();
       break;
-
+    case ActionTypes.CLICK_BACK_TO_THREAD:
+          _isShow = false;
+          MessageStore.emitChange();
+          break;
     case ActionTypes.CREATE_MESSAGE:
       var message = ChatMessageUtils.getCreatedMessageData(
         action.text,

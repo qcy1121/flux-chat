@@ -18,6 +18,7 @@ var UnreadThreadStore = require('../stores/UnreadThreadStore');
 function getStateFromStores() {
   return {
     threads: ThreadStore.getAllChrono(),
+    isShow:ThreadStore.getShowState(),
     currentThreadID: ThreadStore.getCurrentID(),
     unreadCount: UnreadThreadStore.getCount()
   };
@@ -40,6 +41,8 @@ var ThreadSection = React.createClass({
   },
 
   render: function() {
+    var show = this.state.isShow,
+        style={display:show?"block":"none"};
     var threadListItems = this.state.threads.map(function(thread) {
       return (
         <ThreadListItem
@@ -54,11 +57,11 @@ var ThreadSection = React.createClass({
       null :
       <span>Unread threads: {this.state.unreadCount}</span>;
     return (
-      <div className="thread-section">
+      <div className="thread-section" style={style}>
         <div className="thread-count">
           {unread}
         </div>
-        <ul className="thread-list">
+        <ul className="thread-content">
           {threadListItems}
           </ul>
       </div>

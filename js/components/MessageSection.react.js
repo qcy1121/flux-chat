@@ -15,10 +15,12 @@ var MessageListItem = require('./MessageListItem.react');
 var MessageStore = require('../stores/MessageStore');
 var React = require('react');
 var ThreadStore = require('../stores/ThreadStore');
+var ChatScreenActionCreators = require("../actions/ChatScreenActionCreators");
 
 function getStateFromStores() {
   return {
     messages: MessageStore.getAllForCurrentThread(),
+    isShow:MessageStore.getShowState(),
     thread: ThreadStore.getCurrent()
   };
 }
@@ -50,9 +52,12 @@ var MessageSection = React.createClass({
   },
 
   render: function() {
+    var show = this.state.isShow,
+        style={display:show?"display":"none"};
     var messageListItems = this.state.messages.map(getMessageListItem);
     return (
-      <div className="message-section">
+      <div className="message-section" style={style}>
+        <div className="header" ><button onClick={this._onBackClick}>返回</button></div>
         <h3 className="message-thread-heading">{this.state.thread.name}</h3>
         <ul className="message-list" ref="messageList">
           {messageListItems}
@@ -75,7 +80,11 @@ var MessageSection = React.createClass({
    * Event handler for 'change' events coming from the MessageStore
    */
   _onChange: function() {
+
     this.setState(getStateFromStores());
+  },
+  _onBackClick:function(){
+    ChatScreenActionCreators.backToThread();
   }
 
 });
