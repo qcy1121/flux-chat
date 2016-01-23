@@ -18,7 +18,8 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
 var ActionTypes = ChatConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
+var CHANGE_EVENT = 'change',
+    DISPLAY_EVENT='display';
 
 var _currentID = null;
 var _threads = {};
@@ -49,6 +50,16 @@ var ThreadStore = assign({}, EventEmitter.prototype, {
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
+  },
+
+  emitDisplay:function(){
+    this.emit(DISPLAY_EVENT);
+  },
+  addDisplayListener:function(callback){
+    this.on(DISPLAY_EVENT,callback);
+  },
+  removeDisplayListener:function(callback){
+    this.removeListener(DISPLAY_EVENT,callback);
   },
 
   /**
@@ -116,13 +127,13 @@ ThreadStore.dispatchToken = ChatAppDispatcher.register(function(action) {
       _currentID = action.threadID;
       _threads[_currentID].lastMessage.isRead = true;
       _isShow = false;
-
       ThreadStore.emitChange();
+      ThreadStore.emitDisplay();
       break;
 
     case ActionTypes.CLICK_BACK_TO_THREAD:
           _isShow = true;
-        ThreadStore.emitChange();
+        ThreadStore.emitDisplay();
           break;
 
     case ActionTypes.RECEIVE_RAW_MESSAGES:

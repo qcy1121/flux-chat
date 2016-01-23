@@ -18,7 +18,8 @@ var ThreadStore = require('../stores/ThreadStore');
 var assign = require('object-assign');
 
 var ActionTypes = ChatConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
+var CHANGE_EVENT = 'change',
+    DISPLAY_EVENT = "display";
 
 var _messages = {};
 var _isShow = false;
@@ -44,6 +45,16 @@ function _markAllInThreadRead(threadID) {
 
 var MessageStore = assign({}, EventEmitter.prototype, {
 
+
+  emitDisplay:function(){
+    this.emit(DISPLAY_EVENT);
+  },
+  addDisplayListener:function(callback){
+    this.on(DISPLAY_EVENT,callback);
+  },
+  removeDisplayListener:function(callback){
+    this.removeListener(DISPLAY_EVENT,callback);
+  },
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -106,10 +117,12 @@ MessageStore.dispatchToken = ChatAppDispatcher.register(function(action) {
       ChatAppDispatcher.waitFor([ThreadStore.dispatchToken]);
       _markAllInThreadRead(ThreadStore.getCurrentID());
       MessageStore.emitChange();
+      MessageStore.emitDisplay();
       break;
+    //case ActionTypes.
     case ActionTypes.CLICK_BACK_TO_THREAD:
           _isShow = false;
-          MessageStore.emitChange();
+          MessageStore.emitDisplay();
           break;
     case ActionTypes.CREATE_MESSAGE:
       var message = ChatMessageUtils.getCreatedMessageData(

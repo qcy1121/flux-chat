@@ -43,17 +43,19 @@ var MessageSection = React.createClass({
   componentDidMount: function() {
     this._scrollToBottom();
     MessageStore.addChangeListener(this._onChange);
-    ThreadStore.addChangeListener(this._onChange);
+    MessageStore.addDisplayListener(this._onChange);
+    //ThreadStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
     MessageStore.removeChangeListener(this._onChange);
-    ThreadStore.removeChangeListener(this._onChange);
+    MessageStore.removeDisplayListener(this._onChange);
+    //ThreadStore.removeChangeListener(this._onChange);
   },
 
   render: function() {
     var show = this.state.isShow,
-        style={display:show?"display":"none"};
+        style={display:show?"block":"none"};
     var messageListItems = this.state.messages.map(getMessageListItem);
     return (
       <div className="message-section" style={style}>
