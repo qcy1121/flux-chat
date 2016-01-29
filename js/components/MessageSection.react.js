@@ -59,7 +59,7 @@ var MessageSection = React.createClass({
     var messageListItems = this.state.messages.map(getMessageListItem);
     return (
       <div className="message-section" style={style}>
-        <div className="header" ><button onClick={this._onBackClick}>返回</button></div>
+        <div className="header" ><div className="arrow_left" onClick={this._onBackClick} > 返回 </div> </div>
         <h3 className="message-thread-heading">{this.state.thread.name}</h3>
         <ul className="message-list" ref="messageList">
           {messageListItems}

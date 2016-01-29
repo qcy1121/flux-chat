@@ -5,9 +5,12 @@ html{
 //  font-size:12px;
 //  font-size:1.2rem;
 //}
+body{
+  background:#fbf9fe
+}
 .container{
   width:100%;
-  background-color:#fff;
+  //background-color:#fff;
   //height:100%;
 }
 .thread-section{
@@ -19,6 +22,7 @@ html{
 .thread-list-item{
   padding:.5rem 0;
   //height:13.2rem;
+  background-color:#fff;
   border-bottom:1px solid #e1e1e1
 }
 .thread-icon{
@@ -50,4 +54,50 @@ html{
 }
 .message-section{
   display:none;
+}
+
+//.arrow_left{
+//  border:0;
+//  width:0;
+//  height:0;
+//  border-right:1.6rem solid red;
+//  border-top:.8rem solid transparent;
+//  border-bottom:.8rem solid transparent;
+//}
+.arrow_left:before {
+  position: absolute;
+  content: " ";
+  border: transparent 1rem solid;
+  border-width: .85rem .6rem;
+  border-right-color: #CCC;
+  top: .1rem;
+  left: -1.18rem;
+  height: 0;
+  width: 0;
+}
+
+.arrow_left {
+  position: relative;
+  width: 3rem;
+  height: 1.8rem;
+  background: #EEE;
+  border-radius: .5rem;
+  margin: .2rem .8rem;
+  text-align: center;
+  line-height: 1.8rem;
+  color: #999;
+  font-size: 1.4rem;
+  border: .1rem solid #CCC;
+}
+
+.arrow_left:after {
+  position: absolute;
+  content: " ";
+  border: transparent 1rem solid;
+  border-width: .85rem .6rem;
+  border-right-color: #EEE;
+  top: .1rem;
+  left: -1.06rem;
+  height: 0;
+  width: 0;
 }
