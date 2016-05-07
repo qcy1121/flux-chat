@@ -35,6 +35,12 @@ function _addMessages(rawMessages) {
   });
 }
 
+function _addMessage(message) {
+      _messages[message.id] = ChatMessageUtils.convertRawMessage(
+          message,
+          ThreadStore.getCurrentID()
+      );
+}
 function _markAllInThreadRead(threadID) {
   for (var id in _messages) {
     if (_messages[id].threadID === threadID) {
@@ -135,6 +141,12 @@ MessageStore.dispatchToken = ChatAppDispatcher.register(function(action) {
 
     case ActionTypes.RECEIVE_RAW_MESSAGES:
       _addMessages(action.rawMessages);
+      ChatAppDispatcher.waitFor([ThreadStore.dispatchToken]);
+      _markAllInThreadRead(ThreadStore.getCurrentID());
+      MessageStore.emitChange();
+      break;
+    case ActionTypes.RECEIVE_RAW_CREATED_MESSAGE:
+      _addMessage(action.rawMessage);
       ChatAppDispatcher.waitFor([ThreadStore.dispatchToken]);
       _markAllInThreadRead(ThreadStore.getCurrentID());
       MessageStore.emitChange();

@@ -45,7 +45,10 @@ var ThreadStore = assign({}, EventEmitter.prototype, {
       _currentID = allChrono[allChrono.length - 1].id;
     }
 
-    _threads[_currentID].lastMessage.isRead = true;
+    //_threads[_currentID].lastMessage.isRead = true;
+  },
+  addMessage:function(rawMessages){
+
   },
 
   emitChange: function() {
