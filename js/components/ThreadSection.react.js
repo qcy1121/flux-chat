@@ -11,7 +11,7 @@
  */
 
 var React = require('react');
-var ThreadListItem = require('ThreadListItem.react.js');
+var ThreadListItem = require('../components/ThreadListItem.react');
 var ThreadStore = require('../stores/ThreadStore');
 var UnreadThreadStore = require('../stores/UnreadThreadStore');
 

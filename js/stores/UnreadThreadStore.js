@@ -13,8 +13,8 @@
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
 var EventEmitter = require('events').EventEmitter;
-var MessageStore = require('MessageStore');
-var ThreadStore = require('ThreadStore');
+var MessageStore = require('../stores/MessageStore');
+var ThreadStore = require('../stores/ThreadStore');
 var assign = require('object-assign');
 
 var ActionTypes = ChatConstants.ActionTypes;
