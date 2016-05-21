@@ -14,7 +14,7 @@ var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
 var ChatMessageUtils = require('../utils/ChatMessageUtils');
 var EventEmitter = require('events').EventEmitter;
-var ThreadStore = require('../stores/ThreadStore');
+var ThreadStore = require('ThreadStore');
 var assign = require('object-assign');
 
 var ActionTypes = ChatConstants.ActionTypes;

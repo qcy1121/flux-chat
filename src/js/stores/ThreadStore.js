@@ -13,7 +13,7 @@
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
 var ChatMessageUtils = require('../utils/ChatMessageUtils');
-var MessageStore = require('../stores/MessageStore');
+var MessageStore = require('MessageStore');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
