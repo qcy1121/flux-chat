@@ -13,11 +13,11 @@ module.exports = {
     ],
     output: {
         path: './build/', //打包文件存放的绝对路径
-        publicPath: "build/", // 网站运行时的访问路径
+        publicPath: "/build/", // 网站运行时的访问路径
         //chunkFilename: '[chunkhash:8].min.js',//md5取8位
         chunkFilename: '[id].[hash].min.js', //md5取8位
         //filename: "js/[name].[chunkhash:8].min.js"//打包后的文件名Template based on keys in entry above
-        filename: "js/[name].[hash;8].min.js" //打包后的文件名Template based on keys in entry above
+        filename: "js/[name].[hash:8].min.js" //打包后的文件名Template based on keys in entry above
     },
     module: {
         loaders: [ //加载器之间的级联是通过感叹号来连接
